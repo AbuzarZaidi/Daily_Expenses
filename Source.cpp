@@ -74,8 +74,8 @@ void show_menu()
 // functions for current balance file
 void output_current_balance_file(int output_value)
 {
-	ofstream out("c:\\Users\\T540\\Desktop\\c++\\project\\Daily_Expenses_2.0\\current_balance.txt");
-	//ofstream out("current_balance.txt");
+	//ofstream out("c:\\Users\\T540\\Desktop\\c++\\project\\Daily_Expenses_2.0\\current_balance.txt");
+	ofstream out("current_balance.txt");
 	out << output_value;
 	out.close();
 }
@@ -83,8 +83,8 @@ void output_current_balance_file(int output_value)
 int input_current_balance_file()
 {
 	int input;
-	ifstream in("c:\\Users\\T540\\Desktop\\c++\\project\\Daily_Expenses_2.0\\current_balance.txt");
-	//ifstream in("current_balance.txt");
+	//ifstream in("c:\\Users\\T540\\Desktop\\c++\\project\\Daily_Expenses_2.0\\current_balance.txt");
+	ifstream in("current_balance.txt");
 	in >> input;
 	return input;
 	in.close();
@@ -96,8 +96,8 @@ int input_current_balance_file()
 void output_debit_file(information x)
 {
 
-	ofstream out("c:\\Users\\T540\\Desktop\\c++\\project\\Daily_Expenses_2.0\\debit.txt", ios::app);
-	//ofstream out("debit.txt", ios::app);
+	//ofstream out("c:\\Users\\T540\\Desktop\\c++\\project\\Daily_Expenses_2.0\\debit.txt", ios::app);
+	ofstream out("debit.txt", ios::app);
 	out << " " << x.date << " " << x.amount << " " << x.detail_of_amount << endl;
 
 
@@ -113,8 +113,8 @@ ifstream in("c:\\Users\\T540\\Desktop\\c++\\project\\Daily_Expenses_2.0\\debit.t
 void output_credit_file(information y){
 
 
-	ofstream out("c:\\Users\\T540\\Desktop\\c++\\project\\Daily_Expenses_2.0\\credit.txt", ios::app);
-	//ofstream out("credit.txt",ios::app);
+	//ofstream out("c:\\Users\\T540\\Desktop\\c++\\project\\Daily_Expenses_2.0\\credit.txt", ios::app);
+	ofstream out("credit.txt",ios::app);
 	out << " " << y.date << " " << y.amount << " " << y.detail_of_amount << endl;
 
 
@@ -213,8 +213,8 @@ void history()
 		information w;
 
 		cout << setw(12) << "dd/mm/yyyy" << setw(20) << "amount" << "               detail" << endl;
-		ifstream in("c:\\Users\\T540\\Desktop\\c++\\project\\Daily_Expenses_2.0\\credit.txt");
-
+		//ifstream in("c:\\Users\\T540\\Desktop\\c++\\project\\Daily_Expenses_2.0\\credit.txt");
+                ifstream in("credit.txt");
 	
 		//while (!in.eof())
 			while (in >> w.date >> w.amount >> w.detail_of_amount)
@@ -229,8 +229,8 @@ void history()
 		information w;
 
 		cout << setw(12) << "dd/mm/yyyy" << setw(20) << "amount" << "               detail" << endl;
-		ifstream in("c:\\Users\\T540\\Desktop\\c++\\project\\Daily_Expenses_2.0\\debit.txt");
-
+		//ifstream in("c:\\Users\\T540\\Desktop\\c++\\project\\Daily_Expenses_2.0\\debit.txt");
+                ifstream in("debit.txt");
 		
 		//while (!in.eof())
 				while (in >> w.date >> w.amount >> w.detail_of_amount)
@@ -250,7 +250,8 @@ void history()
 		information w;
 		cout << " Debit Transaction on " << search_date << " is : " << endl;
 		cout << setw(12) << "dd/mm/yyyy" << setw(20) << "amount" << "               detail" << endl;
-		ifstream in("c:\\Users\\T540\\Desktop\\c++\\project\\Daily_Expenses_2.0\\debit.txt");
+		//ifstream in("c:\\Users\\T540\\Desktop\\c++\\project\\Daily_Expenses_2.0\\debit.txt");
+		ifstream in("debit.txt");
 		while (in >> w.date >> w.amount >> w.detail_of_amount)
 
 		{
@@ -267,7 +268,8 @@ void history()
 		information v;
 		cout << " Credit Transaction on " << search_date << " is : " << endl;
 		cout << setw(12) << "dd/mm/yyyy" << setw(20) << "amount" << "               detail" << endl;
-		ifstream inn("c:\\Users\\T540\\Desktop\\c++\\project\\Daily_Expenses_2.0\\credit.txt");
+		//ifstream inn("c:\\Users\\T540\\Desktop\\c++\\project\\Daily_Expenses_2.0\\credit.txt");
+		ifstream inn("credit.txt");
 		while (inn >> v.date >> v.amount >> v.detail_of_amount)
 		{
 			inn >> v.date >> v.amount >> v.detail_of_amount;
