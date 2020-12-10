@@ -255,7 +255,7 @@ void history()
 		while (in >> w.date >> w.amount >> w.detail_of_amount)
 
 		{
-			in >> w.date >> w.amount >> w.detail_of_amount;
+			//in >> w.date >> w.amount >> w.detail_of_amount;
 			if (search_date == w.date)
 			{
 				cout << setw(12) << w.date << setw(20) << w.amount << "               " << w.detail_of_amount << endl;
@@ -272,7 +272,7 @@ void history()
 		ifstream inn("credit.txt");
 		while (inn >> v.date >> v.amount >> v.detail_of_amount)
 		{
-			inn >> v.date >> v.amount >> v.detail_of_amount;
+			//inn >> v.date >> v.amount >> v.detail_of_amount;
 			if (search_date == v.date)
 			{
 				cout << setw(12) << v.date << setw(20) << v.amount << "               " << v.detail_of_amount << endl;
