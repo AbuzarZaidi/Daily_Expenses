@@ -136,13 +136,13 @@ void debit()
 	// input value==========
 	cin.ignore();
 	cout << "Enter Date for Debit Amount: " << endl;
-	getline( cin,num1.date);
+	getline(cin, num1.date);
 	//cin >> num1.date;
 	cout << "Enter Debit Amount: " << endl;
 	cin >> num1.amount;
 	cin.ignore();
-	cout << "Enter Detail for Debit Dmount: " << endl;
-	getline( cin,num1.detail_of_amount);
+	cout << "Enter Detail for Debit Amount: " << endl;
+	getline(cin, num1.detail_of_amount);
 	//cin >> num1.detail_of_amount;
 	//============= end of input value
 
@@ -174,7 +174,7 @@ void credit()
 	// input value==========
 	cin.ignore();
 	cout << "Enter date for Credit Amount: " << endl;
-	getline( cin,num1.date);
+	getline(cin, num1.date);
 	//cin >> num1.date;
 	cout << "Enter Credit Amount: " << endl;
 	cin >> num1.amount;
@@ -199,26 +199,28 @@ void credit()
 }
 //============================
 
-
 //3) history
 void history()
 {
 	system("cls");
 	char ch;
-	cout << "Enter c for credit history OR d for debit history: ";
+	cout << "Enter c for credit history:" << endl;
+	cout << "Enter d for debit history:" << endl;
+	cout << "Enter b for history by date: " << endl;
 	cin >> ch;
 	if (ch == 'c')
 	{
 		information w;
 
-		cout << setw(12) << "dd/mm/yyyy" << setw(20) << "amount"<< "               detail" << endl;
+		cout << setw(12) << "dd/mm/yyyy" << setw(20) << "amount" << "               detail" << endl;
 		ifstream in("c:\\Users\\T540\\Desktop\\c++\\project\\Daily_Expenses_2.0\\credit.txt");
-		//ifstream in("credit.txt");
 
-		while (in >> w.date >> w.amount >> w.detail_of_amount)
+	
+		//while (!in.eof())
+			while (in >> w.date >> w.amount >> w.detail_of_amount)
 		{
-			in >> w.date >> w.amount >> w.detail_of_amount;
-			cout << setw(12) << w.date << setw(20) << w.amount  <<"               " <<w.detail_of_amount << endl;
+			//in >> w.date >> w.amount >> w.detail_of_amount;
+			cout << setw(12) << w.date << setw(20) << w.amount << "               " << w.detail_of_amount << endl;
 		}
 		in.close();
 	}
@@ -228,16 +230,60 @@ void history()
 
 		cout << setw(12) << "dd/mm/yyyy" << setw(20) << "amount" << "               detail" << endl;
 		ifstream in("c:\\Users\\T540\\Desktop\\c++\\project\\Daily_Expenses_2.0\\debit.txt");
-		//ifstream in("debit.txt");
 
+		
 		//while (!in.eof())
-		while (in >> w.date >> w.amount >> w.detail_of_amount)
+				while (in >> w.date >> w.amount >> w.detail_of_amount)
 		{
-			in >> w.date >> w.amount >> w.detail_of_amount;
+			//in >> w.date >> w.amount >> w.detail_of_amount;
 			cout << setw(12) << w.date << setw(20) << w.amount << "               " << w.detail_of_amount << endl;
 		}
 		in.close();
 	}
+
+	else if (ch == 'b')
+	{
+		string search_date;
+		cout << "Enter date for which you want to check detail: " << endl;
+		cin >> search_date;
+		//debit part
+		information w;
+		cout << " Debit Transaction on " << search_date << " is : " << endl;
+		cout << setw(12) << "dd/mm/yyyy" << setw(20) << "amount" << "               detail" << endl;
+		ifstream in("c:\\Users\\T540\\Desktop\\c++\\project\\Daily_Expenses_2.0\\debit.txt");
+		while (in >> w.date >> w.amount >> w.detail_of_amount)
+
+		{
+			in >> w.date >> w.amount >> w.detail_of_amount;
+			if (search_date == w.date)
+			{
+				cout << setw(12) << w.date << setw(20) << w.amount << "               " << w.detail_of_amount << endl;
+			}
+
+		}
+		in.close();
+		//==========================================
+		//credit part
+		information v;
+		cout << " Credit Transaction on " << search_date << " is : " << endl;
+		cout << setw(12) << "dd/mm/yyyy" << setw(20) << "amount" << "               detail" << endl;
+		ifstream inn("c:\\Users\\T540\\Desktop\\c++\\project\\Daily_Expenses_2.0\\credit.txt");
+		while (inn >> v.date >> v.amount >> v.detail_of_amount)
+		{
+			inn >> v.date >> v.amount >> v.detail_of_amount;
+			if (search_date == v.date)
+			{
+				cout << setw(12) << v.date << setw(20) << v.amount << "               " << v.detail_of_amount << endl;
+			}
+
+		}
+		inn.close();
+
+//==================================
+
+	}
+
+
 	else
 	{
 		cout << "Incorrect character: " << endl;
@@ -259,3 +305,5 @@ void current_balance()
 
 }
 //=======================
+
+
