@@ -10,9 +10,7 @@ struct information
 	string detail_of_amount;
 };
 void show_menu();
-void input_debit_file();
 void output_debit_file(information x);
-void input_credit_file();
 void output_credit_file(information y);
 int input_current_balance_file();
 void output_current_balance_file();
@@ -26,7 +24,7 @@ void current_balance();
 int main()
 {
 	int n = 1;
-	while (!n == 0)
+	while (n != 0)
 	{
 		show_menu();
 		cout << "\nEnter 0 for close program else input any key to continue: " << endl;
