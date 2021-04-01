@@ -11,8 +11,8 @@ struct information
 	string detail_of_amount = "";
 };
 void show_menu();
-void input_in_file(string, information, string, string);
-void display(string file_name, information x, string search ,string Name);
+void input_in_file(string, string);
+void display(string ,string );
 void main()
 {
 	int n = 1;
@@ -29,11 +29,7 @@ void main()
 void show_menu()
 {
 	system("cls");
-	information s;
 	string fileName = "budget.txt", name = " ";
-	string debit = "/d";
-	string credit = "/c";
-
 	int num = 0;
 	cout << "\n                  --==========================--  Daily_Expenses  Menu  --==============================--\n\n" << endl;
 	cout << " 1) Enter 1 for add Debit: " << endl;
@@ -48,21 +44,21 @@ void show_menu()
 	case 1:
 		//input debit in file
 		name = "Debit";
-		input_in_file(fileName, s,debit,name);
+		input_in_file(fileName,name);
 		break;
 	case 2:
 		//add credit in file
 		name = "Credit";
-		input_in_file(fileName, s,credit,name);
+		input_in_file(fileName,name);
 		break;
 	case 3:
 		//output debit from file
 		name = "Debit";
-		display(fileName, s, debit,name);
+		display(fileName, name);
 		break;
 	case 4:
 		name = "Credit";
-		display(fileName, s, credit,name);
+		display(fileName, name);
 		break;
 	default:
 		cout << "Wrong Entry!" << endl;
@@ -74,9 +70,9 @@ void show_menu()
 
 //input function
 
-void input_in_file(string fileName, information x, string type, string Name )
+void input_in_file(string fileName, string Name )
 {
-
+	information x;
 	cin.ignore();
 	cout << "Enter Date for "<<Name<<" Amount: " << endl;
 	getline(cin, x.date);
@@ -89,13 +85,13 @@ void input_in_file(string fileName, information x, string type, string Name )
 
 	// input in file
 	ofstream out(fileName, ios::app);
-	out <<type<<"~" << x.date << "~" << x.amount << "~" << x.detail_of_amount << endl;
+	out <<Name<<"~" << x.date << "~" << x.amount << "~" << x.detail_of_amount << endl;
 	out.close();
 
 }
 
 //output function
-void display(string fileName, information x, string search, string Name)
+void display(string fileName, string Name)
 {
 	system("cls");
 	int Total = 0, value = 0;
@@ -141,18 +137,18 @@ void display(string fileName, information x, string search, string Name)
 			stringstream ss;
 			ss << amount;
 			ss >> value;
-			if (fileType == "/d")
+			if (fileType =="Credit" )
 			{
-				Total -= value;
+				Total += value;
 			}
-			else if (fileType == "/c") {
+			else if (fileType == "Debit") {
 				Total += value;
 			}
 			string detail_of_amount = "";
 			for (i; i < myText.length(); i++) {
 				detail_of_amount += myText[i];
 			}
-			if (search == fileType) {
+			if (Name == fileType) {
 			cout  << setw(12) << date << setw(20) << amount << "               " << detail_of_amount << endl;
 		}
 		else
@@ -162,7 +158,7 @@ void display(string fileName, information x, string search, string Name)
 	}
 
 	
-	cout<<"\n\n\n"<<"Current Amount:  "<<Total<<endl;
+	cout << "\n\n\n" << "Current Amount:" << Total << endl;
 
 
 	in.close();
