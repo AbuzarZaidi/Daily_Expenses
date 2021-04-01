@@ -1,6 +1,7 @@
 #include<iostream>
 #include<fstream>
 #include<string>
+#include <sstream>
 #include<iomanip>
 using namespace std;
 struct information
@@ -34,7 +35,7 @@ void show_menu()
 	string credit = "/c";
 
 	int num = 0;
-	cout << "\n                  --==========================--  Daily_Expenses 2.0 Menu  --==============================--\n\n" << endl;
+	cout << "\n                  --==========================--  Daily_Expenses  Menu  --==============================--\n\n" << endl;
 	cout << " 1) Enter 1 for add Debit: " << endl;
 	cout << " 2) Enter 2 for add credit: " << endl;
 	cout << " 3) Enter 3 for display detail of debit: " << endl;
@@ -97,9 +98,9 @@ void input_in_file(string fileName, information x, string type, string Name )
 void display(string fileName, information x, string search, string Name)
 {
 	system("cls");
-
+	int Total = 0, value = 0;
 	string myText = "";
-	cout << "DetailType:  " << Name << endl;
+	cout << "DetailType:  " << Name << endl << endl << endl;
 	cout << setw(12) << "dd/mm/yyyy" << setw(20) << "amount" << "               detail" << endl;
 	ifstream in(fileName);
 	while (getline(in, myText)) {
@@ -137,6 +138,16 @@ void display(string fileName, information x, string search, string Name)
 			if (!amount.empty()) {
 				amount.resize(amount.size() - 1);
 			}
+			stringstream ss;
+			ss << amount;
+			ss >> value;
+			if (fileType == "/d")
+			{
+				Total -= value;
+			}
+			else if (fileType == "/c") {
+				Total += value;
+			}
 			string detail_of_amount = "";
 			for (i; i < myText.length(); i++) {
 				detail_of_amount += myText[i];
@@ -151,7 +162,7 @@ void display(string fileName, information x, string search, string Name)
 	}
 
 	
-
+	cout<<Total<<endl;
 
 
 	in.close();
