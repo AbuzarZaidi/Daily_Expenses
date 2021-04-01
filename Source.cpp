@@ -5,23 +5,14 @@
 using namespace std;
 struct information
 {
-	string date;
-	int amount;
-	string detail_of_amount;
+	string date = "";
+	int amount = 0;
+	string detail_of_amount = "";
 };
 void show_menu();
-void output_debit_file(information x);
-void output_credit_file(information y);
-int input_current_balance_file();
-void output_current_balance_file();
-void debit();
-void credit();
-void history();
-void current_balance();
-
-
-//   main_function
-int main()
+void input_in_file(string, information, string, string);
+void display(string file_name, information x, string search ,string Name);
+void main()
 {
 	int n = 1;
 	while (n != 0)
@@ -31,279 +22,137 @@ int main()
 		cin >> n;
 	}
 	system("pause");
-	return 0;
 }
-//======================
-
 
 // function for show menu
 void show_menu()
 {
 	system("cls");
-	int num;
+	information s;
+	string fileName = "budget.txt", name = " ";
+	string debit = "/d";
+	string credit = "/c";
+
+	int num = 0;
 	cout << "\n                  --==========================--  Daily_Expenses 2.0 Menu  --==============================--\n\n" << endl;
 	cout << " 1) Enter 1 for add Debit: " << endl;
 	cout << " 2) Enter 2 for add credit: " << endl;
-	cout << " 3) Enter 3 for show detail: " << endl;
-	cout << " 4) Enter 0 for show Current Balance: " << endl;
+	cout << " 3) Enter 3 for display detail of debit: " << endl;
+	cout << " 4) Enter 4 for display detail of credit: " << endl;
 	cout << "\n    Enter: ";
 	cin >> num;
 	switch (num)
 
 	{
 	case 1:
-		debit();
+		//input debit in file
+		name = "Debit";
+		input_in_file(fileName, s,debit,name);
 		break;
 	case 2:
-		credit();
+		//add credit in file
+		name = "Credit";
+		input_in_file(fileName, s,credit,name);
 		break;
 	case 3:
-		history();
+		//output debit from file
+		name = "Debit";
+		display(fileName, s, debit,name);
 		break;
-	case 0:
-		current_balance();
+	case 4:
+		name = "Credit";
+		display(fileName, s, credit,name);
+		break;
+	default:
+		cout << "Wrong Entry!" << endl;
 		break;
 	}
 
 }
 //===========================
 
+//input function
 
-// functions for current balance file
-void output_current_balance_file(int output_value)
-{
-	//ofstream out("c:\\Users\\T540\\Desktop\\c++\\project\\Daily_Expenses_2.0\\current_balance.txt");
-	ofstream out("current_balance.txt");
-	out << output_value;
-	out.close();
-}
-
-int input_current_balance_file()
-{
-	int input;
-	//ifstream in("c:\\Users\\T540\\Desktop\\c++\\project\\Daily_Expenses_2.0\\current_balance.txt");
-	ifstream in("current_balance.txt");
-	in >> input;
-	return input;
-	in.close();
-}
-//===============================================
-
-
-// functions for debit file
-void output_debit_file(information x)
+void input_in_file(string fileName, information x, string type, string Name )
 {
 
-	//ofstream out("c:\\Users\\T540\\Desktop\\c++\\project\\Daily_Expenses_2.0\\debit.txt", ios::app);
-	ofstream out("debit.txt", ios::app);
-	out << " " << x.date << " " << x.amount << " " << x.detail_of_amount << endl;
-
-
-	out.close();
-}
-//extra code
-/*void input_debit_file()
-{
-ifstream in("c:\\Users\\T540\\Desktop\\c++\\project\\Daily_Expenses_2.0\\debit.txt");
-}*/
-//====================================
-// functions for credit file.
-void output_credit_file(information y){
-
-
-	//ofstream out("c:\\Users\\T540\\Desktop\\c++\\project\\Daily_Expenses_2.0\\credit.txt", ios::app);
-	ofstream out("credit.txt",ios::app);
-	out << " " << y.date << " " << y.amount << " " << y.detail_of_amount << endl;
-
-
-	out.close();
-
-
-}
-
-//=====================================
-
-
-// 1) debit function============
-void debit()
-{
-	int total = 0, show;
-	information num1;
-	show = input_current_balance_file();
-
-	// input value==========
 	cin.ignore();
-	cout << "Enter Date for Debit Amount: " << endl;
-	getline(cin, num1.date);
+	cout << "Enter Date for "<<Name<<" Amount: " << endl;
+	getline(cin, x.date);
 	//cin >> num1.date;
-	cout << "Enter Debit Amount: " << endl;
-	cin >> num1.amount;
+	cout << "Enter "<< Name<<" Amount: " << endl;
+	cin >> x.amount;
 	cin.ignore();
-	cout << "Enter Detail for Debit Amount: " << endl;
-	getline(cin, num1.detail_of_amount);
-	//cin >> num1.detail_of_amount;
-	//============= end of input value
+	cout << "Enter Detail for "<< Name<<" Amount: " << endl;
+	getline(cin, x.detail_of_amount);
 
-	//==to calculate current balance
-	total = show - num1.amount;
-	output_current_balance_file(total);
-	//======
-	// send data to debit file
-	output_debit_file(num1);
+	// input in file
+	ofstream out(fileName, ios::app);
+	out <<type<<"~" << x.date << "~" << x.amount << "~" << x.detail_of_amount << endl;
+	out.close();
 
-
-
-
-	//show enter detail on screen
-	cout << "Enter date is:  " << num1.date << endl;
-	cout << "Enter amount is: " << num1.amount << endl;
-	cout << "Enter detail is: " << num1.detail_of_amount << endl;
 }
-//==========================
 
-
-// 2) credit =============
-void credit()
-{
-	int total = 0, show;
-	information num1;
-	show = input_current_balance_file();
-
-	// input value==========
-	cin.ignore();
-	cout << "Enter date for Credit Amount: " << endl;
-	getline(cin, num1.date);
-	//cin >> num1.date;
-	cout << "Enter Credit Amount: " << endl;
-	cin >> num1.amount;
-	cin.ignore();
-	cout << "Enter Credit Amount Source: " << endl;
-	getline(cin, num1.detail_of_amount);
-	//cin >> num1.detail_of_amount;
-	//============= end of input value
-
-	//==to calculate current balance
-	total = num1.amount + show;
-	output_current_balance_file(total);
-	//====================
-
-	// send data to credit file
-	output_credit_file(num1);
-
-	//show enter detail on screen
-	cout << "Enter date is:  " << num1.date << endl;
-	cout << "Enter amount is: " << num1.amount << endl;
-	cout << "Enter detail is: " << num1.detail_of_amount << endl;
-}
-//============================
-
-//3) history
-void history()
+//output function
+void display(string fileName, information x, string search, string Name)
 {
 	system("cls");
-	char ch;
-	cout << "Enter c for credit history:" << endl;
-	cout << "Enter d for debit history:" << endl;
-	cout << "Enter b for history by date: " << endl;
-	cin >> ch;
-	if (ch == 'c')
-	{
-		information w;
 
-		cout << setw(12) << "dd/mm/yyyy" << setw(20) << "amount" << "               detail" << endl;
-		//ifstream in("c:\\Users\\T540\\Desktop\\c++\\project\\Daily_Expenses_2.0\\credit.txt");
-                ifstream in("credit.txt");
-	
-		//while (!in.eof())
-			while (in >> w.date >> w.amount >> w.detail_of_amount)
-		{
-			//in >> w.date >> w.amount >> w.detail_of_amount;
-			cout << setw(12) << w.date << setw(20) << w.amount << "               " << w.detail_of_amount << endl;
+	string myText = "";
+	cout << "DetailType:  " << Name << endl;
+	cout << setw(12) << "dd/mm/yyyy" << setw(20) << "amount" << "               detail" << endl;
+	ifstream in(fileName);
+	while (getline(in, myText)) {
+		string fileType = "";
+		int i = 0;
+		char c = '\0';
+		while (c != '~') {
+
+			fileType += myText[i];
+			c = myText[i];
+			i++;
 		}
-		in.close();
-	}
-	else if (ch == 'd')
-	{
-		information w;
 
-		cout << setw(12) << "dd/mm/yyyy" << setw(20) << "amount" << "               detail" << endl;
-		//ifstream in("c:\\Users\\T540\\Desktop\\c++\\project\\Daily_Expenses_2.0\\debit.txt");
-                ifstream in("debit.txt");
+		if (!fileType.empty()) {
+			fileType.resize(fileType.size() - 1);
+		}
 		
-		//while (!in.eof())
-				while (in >> w.date >> w.amount >> w.detail_of_amount)
-		{
-			//in >> w.date >> w.amount >> w.detail_of_amount;
-			cout << setw(12) << w.date << setw(20) << w.amount << "               " << w.detail_of_amount << endl;
-		}
-		in.close();
-	}
-
-	else if (ch == 'b')
-	{
-		string search_date;
-		cout << "Enter date for which you want to check detail: " << endl;
-		cin >> search_date;
-		//debit part
-		information w;
-		cout << " Debit Transaction on " << search_date << " is : " << endl;
-		cout << setw(12) << "dd/mm/yyyy" << setw(20) << "amount" << "               detail" << endl;
-		//ifstream in("c:\\Users\\T540\\Desktop\\c++\\project\\Daily_Expenses_2.0\\debit.txt");
-		ifstream in("debit.txt");
-		while (in >> w.date >> w.amount >> w.detail_of_amount)
-
-		{
-			//in >> w.date >> w.amount >> w.detail_of_amount;
-			if (search_date == w.date)
-			{
-				cout << setw(12) << w.date << setw(20) << w.amount << "               " << w.detail_of_amount << endl;
+			string date = "";
+			c = '\0';
+			while (c != '~') {
+				date += myText[i];
+				c = myText[i];
+				i++;
 			}
-
-		}
-		in.close();
-		//==========================================
-		//credit part
-		information v;
-		cout << " Credit Transaction on " << search_date << " is : " << endl;
-		cout << setw(12) << "dd/mm/yyyy" << setw(20) << "amount" << "               detail" << endl;
-		//ifstream inn("c:\\Users\\T540\\Desktop\\c++\\project\\Daily_Expenses_2.0\\credit.txt");
-		ifstream inn("credit.txt");
-		while (inn >> v.date >> v.amount >> v.detail_of_amount)
-		{
-			//inn >> v.date >> v.amount >> v.detail_of_amount;
-			if (search_date == v.date)
-			{
-				cout << setw(12) << v.date << setw(20) << v.amount << "               " << v.detail_of_amount << endl;
+			if (!date.empty()) {
+				date.resize(date.size() - 1);
 			}
-
+			string amount = "";
+			c = '\0';
+			while (c != '~') {
+				amount += myText[i];
+				c = myText[i];
+				i++;
+			}
+			if (!amount.empty()) {
+				amount.resize(amount.size() - 1);
+			}
+			string detail_of_amount = "";
+			for (i; i < myText.length(); i++) {
+				detail_of_amount += myText[i];
+			}
+			if (search == fileType) {
+			cout  << setw(12) << date << setw(20) << amount << "               " << detail_of_amount << endl;
 		}
-		inn.close();
-
-//==================================
-
+		else
+		{
+			continue;
+		}
 	}
 
+	
 
-	else
-	{
-		cout << "Incorrect character: " << endl;
-	}
+
+
+	in.close();
 }
-
-
-
-
-//==============================
-// 4) current_balance
-void current_balance()
-{
-
-	int show;
-	show = input_current_balance_file();
-
-	cout << "\n\nCurrent Amount is: " << show << endl;
-
-}
-//=======================
-
-
