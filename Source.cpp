@@ -142,7 +142,7 @@ void display(string fileName, string Name)
 				Total += value;
 			}
 			else if (fileType == "Debit") {
-				Total += value;
+				Total -= value;
 			}
 			string detail_of_amount = "";
 			for (i; i < myText.length(); i++) {
