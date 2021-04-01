@@ -162,7 +162,7 @@ void display(string fileName, information x, string search, string Name)
 	}
 
 	
-	cout<<Total<<endl;
+	cout<<"\n\n\n"<<"Current Amount"<<Total<<endl;
 
 
 	in.close();
