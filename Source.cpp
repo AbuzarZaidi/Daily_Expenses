@@ -18,10 +18,38 @@ string trim(string);
 //main function
 void main()
 {
-	int n = 1;
+	int n = 1,num=0;
+	string fileName = "budget.txt", name = " ";
 	while (n != 0)
 	{
 		show_menu();
+		cin >> num;
+		switch (num)
+		{
+		case 1:
+			//input debit in file
+			name = "Debit";
+			input_in_file(fileName, name);
+			break;
+		case 2:
+			//input credit in file
+			name = "Credit";
+			input_in_file(fileName, name);
+			break;
+		case 3:
+			//output debit from file
+			name = "Debit";
+			display(fileName, name);
+			break;
+		case 4:
+			//output credit from file
+			name = "Credit";
+			display(fileName, name);
+			break;
+		default:
+			cout << "Wrong Entry!" << endl;
+			break;
+		}
 		cout << "\nEnter 0 for close program else input any key to continue: " << endl;
 		cin >> n;
 	}
@@ -32,42 +60,12 @@ void main()
 void show_menu()
 {
 	system("cls");
-	string fileName = "budget.txt", name = " ";
-	int num = 0;
 	cout << "\n                  --==========================--  Daily_Expenses  Menu  --==============================--\n\n" << endl;
 	cout << " 1) Enter 1 for add Debit: " << endl;
 	cout << " 2) Enter 2 for add credit: " << endl;
 	cout << " 3) Enter 3 for display detail of debit: " << endl;
 	cout << " 4) Enter 4 for display detail of credit: " << endl;
-	cout << "\n    Enter: ";
-	cin >> num;
-	switch (num)
-	{
-	case 1:
-		//input debit in file
-		name = "Debit";
-		input_in_file(fileName, name);
-		break;
-	case 2:
-		//input credit in file
-		name = "Credit";
-		input_in_file(fileName, name);
-		break;
-	case 3:
-		//output debit from file
-		name = "Debit";
-		display(fileName, name);
-		break;
-	case 4:
-		//output credit from file
-		name = "Credit";
-		display(fileName, name);
-		break;
-	default:
-		cout << "Wrong Entry!" << endl;
-		break;
-	}
-
+	cout << "\n    Enter: "<<endl;
 }
 
 //input function
@@ -150,9 +148,9 @@ void display(string fileName, string Name)
 }
 
 //trim function
- string trim(string entry) {
-	 if (!entry.empty()) {
-		 entry.resize(entry.size() - 1);
-	 }
-	 return entry;
+string trim(string entry) {
+	if (!entry.empty()) {
+		entry.resize(entry.size() - 1);
+	}
+	return entry;
 }
